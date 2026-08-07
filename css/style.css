@@ -5,10 +5,64 @@
 }
 
 .container-geral {
-    width: 90%;
+    width: 80vw;
+    height: 100vh;
     margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .container-login {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100%;
+}
+
+.caixa-imagem-login {
+    height: 600px;
+}
+
+.caixa-imagem-login>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form-login {
+    background-color: rgb(231, 231, 231);
+    padding: 30px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-login> h1 {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.form-login>input[type="text"],
+.form-login>input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.opcoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.form-login>input[type="button"] {
+    width: 100%;
+    padding: 12px;
+}
+
+.form-login > p {
+    text-align: center;
+    padding: 30px 0;
 }
