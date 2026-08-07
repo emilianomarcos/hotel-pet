@@ -31,7 +31,7 @@
 }
 
 .form-login {
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(243, 243, 243);
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
 
 .form-login> h1 {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 70px;
 }
 
 .form-login>input[type="text"],
@@ -57,12 +57,45 @@
     margin-bottom: 25px;
 }
 
-.form-login>input[type="button"] {
+.form-login > input[type="button"] {
+    margin-top: 20px;
     width: 100%;
     padding: 12px;
+    background-color: blue;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+}
+
+.form-login > input[type="button"]:hover {
+    background-color: rgb(2, 2, 194);
 }
 
 .form-login > p {
     text-align: center;
     padding: 30px 0;
+}
+
+.redes {
+    display: flex;
+    justify-content: center;
+}
+
+.redes > a {
+    margin: 0 15px;
+}
+
+#linkCriarConta {
+    text-decoration: none;
+    text-align: center;
+    margin-top: 25px;
+    color: rgb(30, 30, 255);
+}
+
+#linkCriarConta:hover {
+    text-decoration: underline;
+    color: rgb(17, 17, 199);
 }
