@@ -107,14 +107,14 @@
     margin: 0 15px;
 }
 
-#linkCriarConta {
+#linkCriarConta, #linkFazerLogin {
     text-decoration: none;
     text-align: center;
     margin-top: 25px;
     color: rgb(30, 30, 255);
 }
 
-#linkCriarConta:hover {
+#linkCriarConta:hover, #linkFazerLogin:hover {
     text-decoration: underline;
     color: rgb(17, 17, 199);
 }
