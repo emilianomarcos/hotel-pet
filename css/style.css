@@ -118,3 +118,36 @@
     text-decoration: underline;
     color: rgb(17, 17, 199);
 }
+
+
+
+/* ESTILO DA PÁGINA RESERVAS */
+
+.container-reservas {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: auto;
+}
+
+.ctn-menu {
+    border-right: 2px solid black;
+    padding: 60px 40px;
+}
+
+.ctn-menu > h1 {
+    padding-bottom: 40px;
+}
+
+.menu > ul {
+    list-style-type: none;
+
+}
+
+.menu > ul > li {
+    padding: 10px 0;
+}
+
+.menu > ul >li > a{
+    text-decoration: none;
+    padding-left: 10px;
+}
