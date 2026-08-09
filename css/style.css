@@ -268,12 +268,10 @@
     margin-top: 15px;    
 }
 
-.botoes-filtro > button {
+
+.botao-azul {
     padding: 10px 20px;
     cursor: pointer;
-}
-
-#botaoPesquisar {
     border: 2px solid #07aee8;
     background-color: #07aee8;
     color: white;
@@ -282,12 +280,15 @@
     margin-right: 15px;
 }
 
-#botaoPesquisar:hover {
+.botao-azul:hover {
     background-color: #0594c3;
     border-color: #0594c3;
 }
 
-#botaoLimpar {
+
+.botao-branco-laranja {
+    padding: 10px 20px;
+    cursor: pointer;
     border: 2px solid orange;
     background-color: white;
     color: orange;
@@ -295,7 +296,7 @@
     font-weight: bold;
 }
 
-#botaoLimpar:hover {
+.botao-branco-laranja:hover {
     background-color: orange;
     color: white;
 }
