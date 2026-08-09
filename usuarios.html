@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="container-reservas">
         <div class="ctn-menu">
@@ -68,49 +70,57 @@
                     </div>
 
                     <div class="container-filtro">
-                        
-                        <div class="form-filtro">
-                           
-                            <div class="campo-filtro">
-                                <label for="">Id</label>
-                                <input type="text" name="" id="">
-                            </div>
 
-                            <div class="campo-filtro">
-                                <label for="">Criado em</label>
-                                <div class="periodo">
+                        <div class="form-filtro-usuario">
+
+                            <div class="linha-um">
+                                <div class="campo-filtro-usuario">
+                                    <label for="">Id</label>
+                                    <input type="text" name="" id="">
+                                </div>
+    
+                                <div class="campo-filtro-usuario">
+                                    <label for="">Criado em</label>
                                     <input type="date" name="" id="">
-                                    <input type="date" name="" id="">
+                                </div>
+                                
+                                <div class="campo-filtro-usuario">
+                                    <label for="">Foto</label>
+                                    <input type="file" name="" id="">
                                 </div>
                             </div>
 
-                            <div class="campo-filtro">
-                                <label for="">E-mail</label>
-                                <input type="email" name="" id="">
+                            <div class="linha-dois">
+                                <div class="campo-filtro-usuario">
+                                    <label for="">E-mail</label>
+                                    <input type="email" name="" id="">
+                                </div>
+    
+                                <div class="campo-filtro-usuario">
+                                    <label for="">Nome</label>
+                                    <input type="text" name="" id="">
+                                </div>
                             </div>
-                            
-                            <div class="campo-filtro">
-                                <label for="">Nome</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            
-                            <div class="campo-filtro">
-                                <label for="">Status</label>
-                                <select name="" id="">
-                                    <option value=""></option>
-                                    <option value="ativo">Ativo</option>
-                                    <option value="inativo">Inativo</option>
-                                </select>
-                            </div>
-                            
-                            <div class="campo-filtro">
-                                <label for="">Função</label>
-                                <select name="" id="">
-                                    <option value=""></option>
-                                    <option value="cliente">Cliente</option>
-                                    <option value="funcionario">Funcionário</option>
-                                    <option value="gerente">Gerente</option>
-                                </select>
+
+                            <div class="linha-dois">
+                                <div class="campo-filtro-usuario">
+                                    <label for="">Status</label>
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                        <option value="ativo">Ativo</option>
+                                        <option value="inativo">Inativo</option>
+                                    </select>
+                                </div>
+    
+                                <div class="campo-filtro-usuario">
+                                    <label for="">Função</label>
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                        <option value="cliente">Cliente</option>
+                                        <option value="funcionario">Funcionário</option>
+                                        <option value="gerente">Gerente</option>
+                                    </select>
+                                </div>
                             </div>
 
                         </div>
@@ -139,49 +149,49 @@
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="" id="">
-                                        <td><img src="imagens/Avatar.png" alt=""></td>
-                                        <td>joaodasilva@gmail.com</td>
-                                        <td>João da Silva</td>
-                                        <td>Gerente</td>
-                                        <td><span class="status-ativo">Ativo</span></td>
-                                        <td>19/02/2020</td>
-                                        <td>
-                                            <a href="">Editar</a>
-                                            <a href="">Visualizar</a>
-                                        </td>
+                                    <td><img src="imagens/Avatar.png" alt=""></td>
+                                    <td>joaodasilva@gmail.com</td>
+                                    <td>João da Silva</td>
+                                    <td>Gerente</td>
+                                    <td><span class="status-ativo">Ativo</span></td>
+                                    <td>19/02/2020</td>
+                                    <td>
+                                        <a href="">Editar</a>
+                                        <a href="">Visualizar</a>
+                                    </td>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="" id="">
-                                        <td><img src="imagens/Avatar.png" alt=""></td>
-                                        <td>maria@pet.com</td>
-                                        <td>Maria da Silva</td>
-                                        <td>Funcionário</td>
-                                        <td><span class="status-inativo">Inativo</span></td>
-                                        <td>19/02/2020</td>
-                                        <td>
-                                            <a href="">Editar</a>
-                                            <a href="">Visualizar</a>
-                                        </td>
+                                    <td><img src="imagens/Avatar.png" alt=""></td>
+                                    <td>maria@pet.com</td>
+                                    <td>Maria da Silva</td>
+                                    <td>Funcionário</td>
+                                    <td><span class="status-inativo">Inativo</span></td>
+                                    <td>19/02/2020</td>
+                                    <td>
+                                        <a href="">Editar</a>
+                                        <a href="">Visualizar</a>
+                                    </td>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="" id="">
-                                        <td><img src="imagens/Avatar.png" alt=""></td>
-                                        <td>josedasilva@pet.com</td>
-                                        <td>José da Silva</td>
-                                        <td>Cliente</td>
-                                        <td><span class="status-ativo">Ativo</span></td>
-                                        <td>19/02/2020</td>
-                                        <td>
-                                            <a href="">Editar</a>
-                                            <a href="">Visualizar</a>
-                                        </td>
+                                    <td><img src="imagens/Avatar.png" alt=""></td>
+                                    <td>josedasilva@pet.com</td>
+                                    <td>José da Silva</td>
+                                    <td>Cliente</td>
+                                    <td><span class="status-ativo">Ativo</span></td>
+                                    <td>19/02/2020</td>
+                                    <td>
+                                        <a href="">Editar</a>
+                                        <a href="">Visualizar</a>
+                                    </td>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -191,4 +201,5 @@
         </div>
     </div>
 </body>
+
 </html>
