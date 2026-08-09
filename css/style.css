@@ -441,3 +441,17 @@
     border: 1px solid red;
 }
 
+
+
+
+/* PAGINA CONFIGURAÇÕES */
+
+.form-configuracoes {
+    width: 500px;
+    margin: auto;
+    padding: 100px 0;
+}
+
+.form-configuracoes > div {
+    margin: 20px 0;
+}
