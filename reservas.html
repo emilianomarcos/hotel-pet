@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="container-reservas">
         <div class="ctn-menu">
@@ -40,16 +42,77 @@
                 </ul>
             </div>
         </div>
-            
+
         <div class="ctn-conteudo-pagina">
-            
+
             <div class="perfil-usuario">
                 <img src="imagens/gerente.png" alt="" height="50px">
                 <p>João da Silva</p>
             </div>
 
-            
+            <div class="area-trabalho">
+                <p class="caminho">Home / Reservas</p>
+
+                <div class="container-secao">
+                    <h2>Reservas</h2>
+                    <button id="novaReserva">+ Nova Reserva</button>
+
+                    <div class="container-filtro">
+                        
+                        <div class="form-filtro">
+                           
+                            <div class="campo-filtro">
+                                <label for="">Id</label>
+                                <input type="text" name="" id="">
+                            </div>
+
+                            <div class="campo-filtro">
+                                <label for="">Período</label>
+                                <div class="periodo">
+                                    <input type="date" name="" id="">
+                                    <input type="date" name="" id="">
+                                </div>
+                            </div>
+
+                            <div class="campo-filtro">
+                                <label for="">Proprietário</label>
+                                <input type="text" name="" id="">
+                            </div>
+                            
+                            <div class="campo-filtro">
+                                <label for="">Total</label>
+                                <input type="text" name="" id="">
+                            </div>
+                            
+                            <div class="campo-filtro">
+                                <label for="">Status</label>
+                                <select name="" id="">
+                                    <option value=""></option>
+                                    <option value="reservada">Reservada</option>
+                                    <option value="em-progresso">Em progresso</option>
+                                    <option value="finalizada">Finalizada</option>
+                                </select>
+                            </div>
+
+                            <div class="campo-filtro">
+                                <label for="">Pet</label>
+                                <input type="text" name="" id="">
+                            </div>
+                        </div>
+
+                        <div class="botoes-filtro">
+                            <button>Pesquisar</button>
+                            <button>Limpar</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
         </div>
     </div>
 </body>
+
 </html>

@@ -191,3 +191,23 @@
     border-radius: 50%;
     margin-right: 10px;
 }
+
+.area-trabalho {
+    padding: 20px 40px;
+}
+
+
+.container-secao {
+    margin-top: 30px;
+    background-color: red;
+    padding: 15px;
+}
+
+#novaReserva {
+    margin-top: 20px;
+}
+
+.container-filtro {
+    background-color: gray;
+    padding: 20px;
+}
