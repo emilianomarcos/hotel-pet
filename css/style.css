@@ -388,3 +388,55 @@
     color: #0594c3;
     font-weight: bold;
 }
+
+
+
+/* PAGINA USUARIOS */
+
+.botoes-usuarios > button:nth-child(2) {
+    margin: 0 15px;
+}
+
+.visualizar-por {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.visualizar-por > p {
+    font-size: 14px;
+    margin-right: 15px;
+}
+
+.botao-branco-roxo {
+    padding: 10px 20px;
+    border: 2px solid purple;
+    color: purple;
+    border-radius: 7px;
+    background-color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-branco-roxo:hover {
+    background-color: purple;
+    color: white;
+}
+
+.visualizar-por > button:last-child {
+    margin-left: 20px;
+}
+
+.status-ativo {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: green;
+    border: 1px solid green;
+}
+
+.status-inativo {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: red;
+    border: 1px solid red;
+}
