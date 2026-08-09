@@ -208,7 +208,17 @@
     align-items: center;
 }
 
-#novaReserva {
+/* #novaReserva {
+    padding: 10px 20px;
+    border: 2px solid #07aee8;
+    color: #07aee8;
+    border-radius: 7px;
+    background-color: white;
+    font-weight: bold;
+    cursor: pointer;
+} */
+
+.botao-branco-azul {
     padding: 10px 20px;
     border: 2px solid #07aee8;
     color: #07aee8;
@@ -218,7 +228,7 @@
     cursor: pointer;
 }
 
-#novaReserva:hover {
+.botao-branco-azul:hover {
     background-color: #07aee8;
     color: white;
 }
