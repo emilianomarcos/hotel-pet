@@ -135,7 +135,6 @@
 .ctn-menu {
     border-right: 1px solid #e0e0e0;
     padding: 40px 0;
-    height: 100vh;
 }
 
 .ctn-menu>h1 {
@@ -173,7 +172,6 @@
 .ctn-conteudo-pagina {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     background-color: #f5f5f5; 
 }
 
@@ -181,7 +179,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px 40px;
+    padding: 10px 40px;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
 }
@@ -199,9 +197,9 @@
 
 
 .container-secao {
-    margin-top: 30px;
+    margin-top: 20px;
     background-color: #f9f9f9;
-    padding: 15px;
+    padding: 30px;
 }
 
 .caixa-titulo {
@@ -211,7 +209,6 @@
 }
 
 #novaReserva {
-    margin-top: 20px;
     padding: 10px 20px;
     border: 2px solid #07aee8;
     color: #07aee8;
@@ -237,7 +234,7 @@
 .form-filtro {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px 30px;
+    gap: 10px 50px;
 }
 
 .campo-filtro > label{
