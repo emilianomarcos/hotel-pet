@@ -199,15 +199,100 @@
 
 .container-secao {
     margin-top: 30px;
-    background-color: red;
+    background-color: white;
     padding: 15px;
+    border-radius: 10px;
 }
 
 #novaReserva {
     margin-top: 20px;
+    padding: 10px 20px;
+    border: 2px solid #07aee8;
+    color: #07aee8;
+    border-radius: 7px;
+    background-color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#novaReserva:hover {
+    background-color: #07aee8;
+    color: white;
 }
 
 .container-filtro {
-    background-color: gray;
+    background-color: white;
+    border: 1px solid rgba(128, 128, 128, 0.271);
     padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.form-filtro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 30px;
+}
+
+.campo-filtro > label{
+    display: block;
+}
+
+.campo-filtro > input {
+    width: 100%;
+    padding: 8px;
+}
+
+.periodo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    
+}
+
+.periodo > input {
+    padding: 7px;
+}
+
+.campo-filtro > select {
+    width: 100%;
+    padding: 8px;
+}
+
+.botoes-filtro {
+    text-align: right;
+    margin-top: 15px;    
+}
+
+.botoes-filtro > button {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#botaoPesquisar {
+    border: 2px solid #07aee8;
+    background-color: #07aee8;
+    color: white;
+    border-radius: 7px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+#botaoPesquisar:hover {
+    background-color: #0594c3;
+    border-color: #0594c3;
+}
+
+#botaoLimpar {
+    border: 2px solid orange;
+    background-color: white;
+    color: orange;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+#botaoLimpar:hover {
+    background-color: orange;
+    color: white;
 }
