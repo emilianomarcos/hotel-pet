@@ -296,3 +296,29 @@
     background-color: orange;
     color: white;
 }
+
+.container-tabela {
+    padding-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.tabela-dados {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabela-dados th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ffffff;
+    background-color: #e0eaff;
+}
+
+.tabela-dados td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #d8d8d8;
+    background-color: #fafeff;
+}
