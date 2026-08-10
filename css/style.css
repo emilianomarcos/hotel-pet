@@ -213,15 +213,6 @@
     align-items: center;
 }
 
-/* #novaReserva {
-    padding: 10px 20px;
-    border: 2px solid #07aee8;
-    color: #07aee8;
-    border-radius: 7px;
-    background-color: white;
-    font-weight: bold;
-    cursor: pointer;
-} */
 
 .botao-branco-azul {
     padding: 10px 20px;
@@ -557,4 +548,29 @@
 
 .form-editar-perfil > div {
     margin-top: 15px;
+}
+
+
+
+/* EDITAR RESERVA FINALIZADA */
+
+.link-roxo {
+    padding: 7px 10px;
+    border: 2px solid rgb(197, 2, 197);
+    color: white;
+    border-radius: 7px;
+    background-color: rgb(197, 2, 197);
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.link-roxo:hover {
+    background-color: purple;
+}
+
+.recibo {
+    display: flex;
+    margin: 30px 0;
 }
