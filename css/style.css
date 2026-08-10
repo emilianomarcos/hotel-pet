@@ -76,11 +76,13 @@
     color: rgb(17, 17, 199);
 }
 
-.form-login>input[type="button"] {
+
+
+.botao-login {
     margin-top: 15px;
     width: 100%;
     padding: 12px;
-    background-color: blue;
+    background-color: #07aee8;
     color: white;
     font-size: 17px;
     font-weight: bold;
@@ -88,11 +90,14 @@
     cursor: pointer;
     border-radius: 7px;
     border: none;
+    text-align: center;
+    text-decoration: none;
 }
 
-.form-login>input[type="button"]:hover {
-    background-color: rgb(2, 2, 194);
+.botao-login:hover {
+    background-color: #0391c0;
 }
+
 
 .form-login>p {
     text-align: center;
