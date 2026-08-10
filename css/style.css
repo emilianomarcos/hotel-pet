@@ -233,6 +233,24 @@
     color: white;
 }
 
+.link-branco-azul {
+    padding: 10px 20px;
+    border: 2px solid #07aee8;
+    color: #07aee8;
+    border-radius: 7px;
+    background-color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+.link-branco-azul:hover {
+    background-color: #07aee8;
+    color: white;
+}
+
 .container-filtro {
     background-color: white;
     border: 1px solid rgba(128, 128, 128, 0.271);
