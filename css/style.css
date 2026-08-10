@@ -515,3 +515,28 @@
     margin: 40px 0;
     text-align: center;
 }
+
+
+
+
+/* CADASTRAR PET */
+
+
+.container-form-novo-pet {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+}
+
+.foto-pet-cadastro {
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.form-novo-pet > .campo-filtro > label {
+    margin-top: 10px;
+}
+
+.form-novo-pet > .caixa-botoes {
+    margin-top: 20px;
+}
