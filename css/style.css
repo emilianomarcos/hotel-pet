@@ -473,3 +473,21 @@
 .form-configuracoes > div {
     margin: 20px 0;
 }
+
+
+
+/* EDITAR RESERVA */
+
+.form-editar-reserva {
+    width: 500px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.form-editar-reserva > .campo-filtro > textarea {
+    width: 100%;
+}
+
+.form-editar-reserva > .campo-filtro > label {
+    padding-top: 5px;
+}
