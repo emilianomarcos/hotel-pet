@@ -540,3 +540,16 @@
 .form-novo-pet > .caixa-botoes {
     margin-top: 20px;
 }
+
+
+/* EDITAR PERFIL */
+
+.form-editar-perfil {
+    width: 500px;
+    margin: auto;
+    padding: 50px 0;
+}
+
+.form-editar-perfil > div {
+    margin-top: 15px;
+}
