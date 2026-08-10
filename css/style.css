@@ -176,15 +176,20 @@
 }
 
 .perfil-usuario {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     padding: 10px 40px;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
 }
 
-.perfil-usuario > img {
+.perfil-usuario > a {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.perfil-usuario > a > img {
     border: 1px solid gray;
     border-radius: 50%;
     margin-right: 10px;
