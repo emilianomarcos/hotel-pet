@@ -16,3 +16,18 @@ if (btnLogin) {
         }
     });
 }
+
+
+
+// REDIRECIONAMENTO DE NAVEGAÇÃO
+
+// Lógica para o botão "+ Nova Reserva"
+const btnNovaReserva = document.getElementById("btn-nova-reserva");
+
+if (btnNovaReserva) {
+    // ao clicar no botão '+ Nova Reserva'
+    btnNovaReserva.addEventListener('click', function() {
+        // Redireciona para a página 'fazer reserva'
+        window.location.href = 'fazer-reserva.html';
+    })
+}
