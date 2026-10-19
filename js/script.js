@@ -31,3 +31,15 @@ if (btnNovaReserva) {
         window.location.href = 'fazer-reserva.html';
     })
 }
+
+
+// Lógica para o botão "+ Novo Pet"
+const btnNovoPet = document.getElementById("btn-novo-pet");;
+
+if(btnNovoPet) {
+    // ao clicar no botão '+ Novo Pet'
+    btnNovoPet.addEventListener('click', function() {
+        // redireciona para a pagina cadastrar pet
+        window.location.href = 'cadastrar-pet.html';
+    })
+}
