@@ -43,3 +43,15 @@ if(btnNovoPet) {
         window.location.href = 'cadastrar-pet.html';
     })
 }
+
+
+// logica para o botão '+ Novo usuario'
+const btnNovoUsuario = document.getElementById('btn-novo-usuario');
+
+if (btnNovoUsuario) {
+    // ao clicar no botão 'Novo usuario'
+    btnNovoUsuario.addEventListener('click', function() {
+        // redireciona para a pagina 'cadastrar-usuario'
+        window.location.href = 'cadastrar-usuario.html';
+    })
+}
