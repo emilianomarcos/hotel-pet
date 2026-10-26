@@ -87,6 +87,12 @@ botoesLimpar.forEach(botao => {
                         campo.value = '';
                     }
                 });
+
+                // reseta a tabela para exibir todas as linhas
+                const linhasTabela = areaTrabalho.querySelectorAll('.tabela-dados tbody tr');
+                linhasTabela.forEach(linha => {
+                    linha.style.display = ''; 
+                })
             }
         });
     }
