@@ -91,3 +91,49 @@ botoesLimpar.forEach(botao => {
         });
     }
 });
+
+
+
+// Lógica de busca - página de pets
+
+const btnPesquisarPets = document.getElementById('btn-pesquisar-pets');
+
+if (btnPesquisarPets) {
+    btnPesquisarPets.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita o recarregamento da página
+
+        // Captura os valores digitados e converte para minúsculas
+        const idFiltro = document.getElementById('filtro-id-pet').value.trim().toLowerCase();
+        const racaFiltro = document.getElementById('filtro-raca-pet').value.trim().toLowerCase();
+        const nomeFiltro = document.getElementById('filtro-nome-pet').value.trim().toLowerCase();
+        const tamanhoFiltro = document.getElementById('filtro-tamanho-pet').value.trim().toLowerCase();
+
+        // Seleciona todas as linhas do corpo da tabela de pets
+        const linhas = document.querySelectorAll('.tabela-dados tbody tr');
+
+        // Analisa cada linha individualmente
+        linhas.forEach(linha => {
+            // Seleciona todas as colunas (td) da linha atual
+            const colunas = linha.querySelectorAll('td');
+
+            // Acessa o texto de cada coluna com base na posição (Index)
+            const idLinha = colunas[1].textContent.trim().toLowerCase();
+            const nomeLinha = colunas[2].textContent.trim().toLowerCase();
+            const racaLinha = colunas[4].textContent.trim().toLowerCase();
+            const tamanhoLinha = colunas[5].textContent.trim().toLowerCase();
+
+            // Verifica se o conteúdo da tabela inclui o que foi digitado
+            const id = idLinha.includes(idFiltro);
+            const raca = racaLinha.includes(racaFiltro);
+            const nome = nomeLinha.includes(nomeFiltro);
+            const tamanho = tamanhoLinha.includes(tamanhoFiltro);
+
+            // Se a linha corresponder a todos os filtros ativos, ela é exibida. Senão, é ocultada.
+            if (id && raca && nome && tamanho) {
+                linha.style.display = ''; // Mostra a linha
+            } else {
+                linha.style.display = 'none'; // Oculta a linha
+            }
+        });
+    });
+}
