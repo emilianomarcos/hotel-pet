@@ -55,3 +55,24 @@ if (btnNovoUsuario) {
         window.location.href = 'cadastrar-usuario.html';
     })
 }
+
+
+// Lógica botão limpar - tela reservas
+
+const btnLimparReservas = document.getElementById('btn-limpar-reservas');
+
+if(btnLimparReservas) {
+    btnLimparReservas.addEventListener('click', function() {
+        event.preventDefault();
+
+        const formFiltro = document.querySelector('.form-filtro');
+
+        if (formFiltro) {
+            const campos = formFiltro.querySelectorAll('input, select');
+
+            campos.forEach(campo => {
+                campo.value = '';
+            });
+        }
+    });
+}
