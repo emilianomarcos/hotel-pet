@@ -57,22 +57,37 @@ if (btnNovoUsuario) {
 }
 
 
-// Lógica botão limpar - tela reservas
 
-const btnLimparReservas = document.getElementById('btn-limpar-reservas');
 
-if(btnLimparReservas) {
-    btnLimparReservas.addEventListener('click', function() {
-        event.preventDefault();
+// Logica do botão Limpar (global)
 
-        const formFiltro = document.querySelector('.form-filtro');
+// Seleciona todos os botões com a classe correspondente
+const botoesLimpar = document.querySelectorAll('.botao-branco-laranja');
 
-        if (formFiltro) {
-            const campos = formFiltro.querySelectorAll('input, select');
+botoesLimpar.forEach(botao => {
+    // Verifica se o botão realmente é o de "Limpar"
+    if (botao.textContent.trim().toLowerCase() === 'limpar') {
+        
+        botao.addEventListener('click', function(event) {
+            event.preventDefault(); // Evita recarregar a página
 
-            campos.forEach(campo => {
-                campo.value = '';
-            });
-        }
-    });
-}
+            // Encontra a "area-trabalho" atual onde o botão foi clicado
+            const areaTrabalho = botao.closest('.area-trabalho');
+            
+            if (areaTrabalho) {
+                // Seleciona todos os campos
+                // uso do :not(td input) para evitar que ele desmarque os checkboxes de dentro das tabelas!
+                const campos = areaTrabalho.querySelectorAll('input:not(td input), select, textarea');
+                
+                // Percorre todos os campos encontrados e apaga o valor deles
+                campos.forEach(campo => {
+                    if (campo.type === 'checkbox' || campo.type === 'radio') {
+                        campo.checked = false; // Desmarca se for caixa de seleção
+                    } else {
+                        campo.value = '';
+                    }
+                });
+            }
+        });
+    }
+});
