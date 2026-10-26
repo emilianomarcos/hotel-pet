@@ -143,3 +143,79 @@ if (btnPesquisarPets) {
         });
     });
 }
+
+
+
+
+
+// Lógica de Busca - tela de reservas
+
+const btnPesquisarReservas = document.getElementById('btn-pesquisar-reservas');
+
+if (btnPesquisarReservas) {
+    btnPesquisarReservas.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Captura valores dos filtros de texto
+        const idFiltro = document.getElementById('filtro-id-reserva').value.trim().toLowerCase();
+        const proprietarioFiltro = document.getElementById('filtro-proprietario').value.trim().toLowerCase();
+        const petFiltro = document.getElementById('filtro-pet-reserva').value.trim().toLowerCase();
+        const totalFiltro = document.getElementById('filtro-total').value.trim().toLowerCase();
+        
+        // pegamos o status da opção selecionada
+        const statusSelect = document.getElementById('filtro-status');
+        const statusFiltro = statusSelect.options[statusSelect.selectedIndex].text.toLowerCase();
+
+        // Captura os valores das datas
+        const dataInicioFiltro = document.getElementById('filtro-data-inicio').value;
+        const dataFimFiltro = document.getElementById('filtro-data-fim').value;
+
+        //Seleciona todas as linhas da tabela de reservas
+        const linhas = document.querySelectorAll('.tabela-dados tbody tr');
+
+        linhas.forEach(linha => {
+            const colunas = linha.querySelectorAll('td');
+            
+            const idLinha = colunas[1].textContent.trim().toLowerCase();
+            const proprietarioLinha = colunas[2].textContent.trim().toLowerCase();
+            const petLinha = colunas[3].textContent.trim().toLowerCase();
+            const chegadaTexto = colunas[4].textContent.trim(); 
+            const partidaTexto = colunas[5].textContent.trim(); 
+            const statusLinha = colunas[6].textContent.trim().toLowerCase();
+            const totalLinha = colunas[7].textContent.trim().toLowerCase();
+
+        
+            const formatarData = (dataBR) => {
+                if (!dataBR) return '';
+                const partes = dataBR.split('/');
+                return partes.length === 3 ? `${partes[2]}-${partes[1]}-${partes[0]}` : dataBR;
+            };
+
+            const dataChegada = formatarData(chegadaTexto);
+            const dataPartida = formatarData(partidaTexto);
+
+           
+            const id = idLinha.includes(idFiltro);
+            const proprietario = proprietarioLinha.includes(proprietarioFiltro);
+            const pet = petLinha.includes(petFiltro);
+            const total = totalLinha.includes(totalFiltro);
+            const status = statusFiltro === '' || statusLinha === statusFiltro;
+            
+           
+            let data = true;
+            if (dataInicioFiltro && dataChegada < dataInicioFiltro) {
+                data = false; // Se a chegada for antes do início do filtro, esconde
+            }
+            if (dataFimFiltro && dataPartida > dataFimFiltro) {
+                data = false; // Se a partida for depois do fim do filtro, esconde
+            }
+
+            
+            if (id && proprietario && pet && total && status && data) {
+                linha.style.display = '';
+            } else {
+                linha.style.display = 'none';
+            }
+        });
+    });
+}
