@@ -223,4 +223,64 @@ if (btnPesquisarReservas) {
 
 
 
+
+
+
 // Lógica de Busca - tela de usuarios
+
+const btnPesquisarUsuario = document.getElementById('btn-pesquisar-usuario');
+
+if (btnPesquisarUsuario) {
+    btnPesquisarUsuario.addEventListener('click', function(event) {
+        event.preventDefault(); // previne que a pagina seja recarregada.
+
+        // captura os valores dos campos
+        const idUsuario = document.getElementById('filtro-id-usuario').value.trim().toLowerCase();
+        const emailUsuario = document.getElementById('filtro-email-usuario').value.trim().toLowerCase();
+        const nomeUsuario = document.getElementById('filtro-nome-usuario').value.trim().toLowerCase();
+        
+        const statusSelectUsuario = document.getElementById('filtro-status-usuario');
+        const statusUsuario = statusSelectUsuario.options[statusSelectUsuario.selectedIndex].text.toLowerCase();
+        
+        const funcaoSelectUsuario = document.getElementById('filtro-funcao-usuario');
+        const funcaoUsuario = funcaoSelectUsuario.options[funcaoSelectUsuario.selectedIndex].text.toLowerCase();
+        
+        const dataUsuario = document.getElementById('filtro-data-criacao').value;
+        
+        // seleciona todas as linhas da tabela de usuarios
+        const linhas = document.querySelectorAll('.tabela-dados tbody tr');
+
+        linhas.forEach(linha => {
+            const colunas = linha.querySelectorAll('td');
+
+            const idLinhaUsuario = colunas[2].textContent.trim().toLowerCase();
+            const emailLinhaUsuario = colunas[3].textContent.trim().toLowerCase();
+            const nomeLinhaUsuario = colunas[4].textContent.trim().toLowerCase();
+            const funcaoLinhaUsuario = colunas[5].textContent.trim().toLowerCase();
+            const statusLinhaUsuario = colunas[6].textContent.trim().toLowerCase();
+            const dataFormUsuario = colunas[7].textContent.trim();
+
+            // formata a data
+            const formatarData = (dataBR) => {
+                if(!dataBR) return '';
+                const partes = dataBR.split('/');
+                return partes.length === 3 ? `${partes[2]}-${partes[1]}-${partes[0]}` : dataBR;
+            }
+            const dataLinhaUsuario = formatarData(dataFormUsuario);
+
+            const id = idLinhaUsuario.includes(idUsuario);
+            const email = emailLinhaUsuario.includes(emailUsuario);
+            const nome = nomeLinhaUsuario.includes(nomeUsuario);
+            const funcao = funcaoUsuario === '' || funcaoLinhaUsuario === funcaoUsuario;
+            const status = statusUsuario === '' || statusLinhaUsuario === statusUsuario;
+            const data = dataUsuario === '' || dataLinhaUsuario === dataUsuario;
+
+            if (id && email && nome && funcao && status && data) {
+                linha.style.display = '';
+            } else {
+                linha.style.display = 'none';
+            }
+        });
+       
+    });
+}
