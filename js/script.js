@@ -219,3 +219,8 @@ if (btnPesquisarReservas) {
         });
     });
 }
+
+
+
+
+// Lógica de Busca - tela de usuarios
