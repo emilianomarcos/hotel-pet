@@ -316,6 +316,7 @@ if (btnPesquisarUsuario) {
 
 
 
+
 // LÓGICA PARA SALVAR VALOR DA DIÁRIA E VAGAS NO LOCALSTORAGE
 
 const btnSalvarConfig = document.getElementById('btn-salvar-config');
@@ -360,3 +361,112 @@ if (btnSalvarConfig) {
         alert('Configurações salvas com sucesso!');
     })
 }
+
+
+
+
+// CADASTRAR NOVO PET LOCAL STORAGE
+
+const btnSalvarPet = document.getElementById('btn-salvar-pet');
+
+if (btnSalvarPet) {
+    btnSalvarPet.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // captura os valores dos inputs
+        const dono = document.getElementById('input-dono-pet').value.trim();
+        const nome = document.getElementById('input-nome-pet').value.trim();
+        const raca = document.getElementById('input-raca-pet').value.trim();
+
+        const selectTipo = document.getElementById('input-tipo-pet');
+        const tipo = selectTipo.options[selectTipo.selectedIndex].text;
+
+        const selectTamanho = document.getElementById('input-tamanho-pet');
+        const tamanho = selectTamanho.options[selectTamanho.selectedIndex].text;
+
+        // inpede salvar se algum campo estiver vazio
+        if (!dono || !nome || !raca || selectTipo.value === "" || selectTamanho.value === "") {
+            alert('Por favor, preencha todos os campos do pet.');
+            return; // Para a execução 
+        }
+
+        // gera id aleatorio de 10 digitos
+        const idGerado = Math.floor(Math.random() * 9000000000) + 1000000000;
+
+        // cria o objeto do novo pet
+        const novoPet = {
+            id: idGerado.toString(),
+            proprietario: dono,
+            nome: nome,
+            tipo: tipo,
+            raca: raca,
+            tamanho: tamanho
+        };
+
+        // puxa a lista existente ou cria uma nova vazia
+        let listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+
+        // adiciona o novo pet e salva
+        listaPets.push(novoPet);
+        localStorage.setItem('tabelaPets', JSON.stringify(listaPets));
+
+        alert('Pet cadastrado com sucesso!');
+
+        // direciona para a pagina pets
+        window.location.href = 'pets.html';
+    })
+}
+
+
+
+
+
+
+// RENDERIZA TABELA DE PETS LOCAL STORAGE (PAGINA PETS)
+
+
+function carregarTabelaPets() {
+    const tbodyPets = document.getElementById('tabela-pets-body');
+    
+    
+    if (!tbodyPets) return;
+
+    //Tenta buscar a lista do localStorage
+    let listaPets = JSON.parse(localStorage.getItem('tabelaPets'));
+
+    // Se lista não existe, criamos os dados originais
+    if (!listaPets) {
+        listaPets = [
+            { id: "12349984501", proprietario: "José da Silva", nome: "Max", tipo: "Cachorro", raca: "Pastor Alemão", tamanho: "Grande" },
+            { id: "1351518110", proprietario: "Maria da Silva", nome: "Ginger", tipo: "Gato", raca: "Não Definida", tamanho: "Pequeno" }
+        ];
+        
+        localStorage.setItem('tabelaPets', JSON.stringify(listaPets));
+    }
+
+    //Limpa o HTML fixo que estava escrito no arquivo
+    tbodyPets.innerHTML = '';
+
+    // Percorre a lista do localStorage e cria cada linha dinamicamente
+    listaPets.forEach(pet => {
+        const linha = document.createElement('tr');
+        
+        linha.innerHTML = `
+            <td><input type="checkbox"></td>
+            <td>${pet.id}</td>
+            <td>${pet.nome}</td>
+            <td>${pet.tipo}</td>
+            <td>${pet.raca}</td>
+            <td>${pet.tamanho}</td>
+            <td>
+                <a href="editar-pet.html">Editar</a>
+                <a href="visualizar-pet.html">Visualizar</a>
+            </td>
+        `;
+        
+        // Adiciona a linha criada dentro do tbody
+        tbodyPets.appendChild(linha);
+    });
+}
+
+carregarTabelaPets();
