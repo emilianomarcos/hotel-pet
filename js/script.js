@@ -1,18 +1,46 @@
 // lógica de login simuladaa
+// const btnLogin = document.getElementById('btn-login');
+
+// if (btnLogin) {
+//     btnLogin.addEventListener('click', function() {
+//         //pega os valores digitados nos campos 'login' e 'senha'
+//         const loginValor = document.getElementById('input-login').value;
+//         const senhaValor = document.getElementById('input-senha').value;
+
+//         // verifica se os campos login e senha estão em brancos
+//         if(loginValor.trim() !== '' && senhaValor.trim() !== '') {
+//             // Direciona o usuario para a página de reservas
+//             window.location.href = 'reservas.html';
+//         } else {
+//             alert("Os campos login e senha são obrigatórios.");
+//         }
+//     });
+// }
+
+
+// lógica de login com local storage
+
 const btnLogin = document.getElementById('btn-login');
 
 if (btnLogin) {
     btnLogin.addEventListener('click', function() {
-        //pega os valores digitados nos campos 'login' e 'senha'
-        const loginValor = document.getElementById('input-login').value;
-        const senhaValor = document.getElementById('input-senha').value;
+        // Captura os valores digitados
+        const loginValor = document.getElementById('input-login').value.trim();
+        const senhaValor = document.getElementById('input-senha').value.trim();
 
-        // verifica se os campos login e senha estão em brancos
-        if(loginValor.trim() !== '' && senhaValor.trim() !== '') {
-            // Direciona o usuario para a página de reservas
+        // simula a verificação em um banco de dados
+        // defini que o login valido é 'gerente' e senha '123'
+        if (loginValor === 'gerente' && senhaValor === '123') {
+            
+            //se usuário digitou corretamente, é gravado os dados no Local Storage
+            localStorage.setItem('usuarioLogado', 'João da Silva');
+            localStorage.setItem('funcaoUsuario', 'Gerente');
+            
+            //Redireciona para a página reservas
             window.location.href = 'reservas.html';
         } else {
-            alert("Os campos login e senha são obrigatórios.");
+            // Se errar, exibe um alerta e não deixa passar
+            alert('Login ou senha incorretos! Dica: use "gerente" e "123".');
         }
     });
 }
