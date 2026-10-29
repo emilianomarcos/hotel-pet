@@ -312,3 +312,51 @@ if (btnPesquisarUsuario) {
        
     });
 }
+
+
+
+
+// LÓGICA PARA SALVAR VALOR DA DIÁRIA E VAGAS NO LOCALSTORAGE
+
+const btnSalvarConfig = document.getElementById('btn-salvar-config');
+const inputDiaria = document.getElementById('input-diaria');
+const inputVagas = document.getElementById('input-vagas');
+
+//carrega os dados quando a página for aberta
+// se os inputs existirem na tela
+if (inputDiaria && inputVagas) {
+    // Busca os valores no Local Storage
+    const diariaSalva = localStorage.getItem('configValorDiaria');
+    const vagasSalvas = localStorage.getItem('configVagasDisponiveis');
+
+    // se já existir valor salvo, os inputs são preechidos
+    if (diariaSalva) {
+        inputDiaria.value = diariaSalva;
+    }
+    if (vagasSalvas) {
+        inputVagas.value = vagasSalvas;
+    }
+}
+
+// salva os dados ao clicar no botão slavar
+if (btnSalvarConfig) {
+    btnSalvarConfig.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // captura os valores digitados
+        const valorDiaria = inputDiaria.value.trim();
+        const vagasDisponiveis = inputVagas.value.trim();
+
+        // valida para não salvar vazio
+        if (valorDiaria === '' || vagasDisponiveis === '') {
+            alert('Preencha os campos antes de salvar');
+            return; // interrompe a execução
+        }
+
+        // salva no local storage
+        localStorage.setItem('configValorDiaria', valorDiaria);
+        localStorage.setItem('configVagasDisponiveis', vagasDisponiveis);
+
+        alert('Configurações salvas com sucesso!');
+    })
+}
