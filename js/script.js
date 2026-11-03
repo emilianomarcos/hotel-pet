@@ -773,7 +773,7 @@ function carregarTabelaReservas() {
             <td>${reserva.total}</td>
             <td>
                 <a href="editar-reserva.html" onclick="prepararEdicaoReserva('${reserva.id}')">Editar</a>
-                <a href="visualizar-reserva.html" onclick="prepararVisualizacaoReserva('${reserva.id}')">Visualizar</a>
+                <a href="ver-reserva.html" onclick="prepararVisualizacaoReserva('${reserva.id}')">Visualizar</a>
             </td>
         `;
         
@@ -781,3 +781,72 @@ function carregarTabelaReservas() {
     });
 }
 carregarTabelaReservas();
+
+
+
+
+// VISUALIZAR RESERVA (LOCAL STORAGE)
+
+// armazena o id da reserva ao clicar em visualizar
+function prepararVisualizacaoReserva(id) {
+    localStorage.setItem('idReservaEmVisualizacao', id);
+}
+
+// carrega os dados 
+function carregarDadosVisualizacaoReserva() {
+    const campoIdVisualizar = document.getElementById('vis-id-reserva');
+
+    if (!campoIdVisualizar) return;
+
+    // puxa o ID salvo e a lista de reservas do local storage
+    const idReserva = localStorage.getItem('idReservaEmVisualizacao');
+    const listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
+
+    // procura a reserva específica na lista
+    const reservaEncontrada = listaReservas.find(reserva => reserva.id === idReserva);
+
+    if (reservaEncontrada) {
+        // preenche os textos na tela
+        campoIdVisualizar.textContent = reservaEncontrada.id;
+
+        const campoDono = document.getElementById('vis-dono-reserva');
+        if (campoDono) {
+            campoDono.textContent = reservaEncontrada.proprietario;
+        }
+
+        const campoPet = document.getElementById('vis-pet-reserva');
+        if (campoPet) {
+            campoPet.textContent = reservaEncontrada.pet;
+        }
+
+        const campoChegada = document.getElementById('vis-chegada-reserva');
+        if (campoChegada) {
+            campoChegada.textContent = reservaEncontrada.chegada;
+        }
+        
+        const campoPartida = document.getElementById('vis-partida-reserva');
+        if (campoPartida) {
+            campoPartida.textContent = reservaEncontrada.partida;   
+        }
+        
+        const campoStatus = document.getElementById('vis-status-reserva');
+        if (campoStatus) {
+            campoStatus.textContent = reservaEncontrada.status;
+        }
+        
+        const campoTotal = document.getElementById('vis-total-reserva');
+        if (campoTotal) {
+            campoTotal.textContent = reservaEncontrada.total;
+        }
+
+        const campoNotas = document.getElementById('vis-notas-reserva');
+        //caso não tenha nota, mostra texto padrão
+        if (campoNotas) {
+            campoNotas.textContent = reservaEncontrada.notas || "Nenhuma nota adicionada.";
+        }
+    } else {
+        alert('Os dados dessa reserva não foram encontrados.');
+    }
+}
+
+carregarDadosVisualizacaoReserva();
