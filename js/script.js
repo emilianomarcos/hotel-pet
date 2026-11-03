@@ -437,7 +437,7 @@ function carregarTabelaPets() {
     // Se lista não existe, criamos os dados originais
     if (!listaPets) {
         listaPets = [
-            { id: "12349984501", proprietario: "José da Silva", nome: "Max", tipo: "Cachorro", raca: "Pastor Alemão", tamanho: "Grande" },
+            { id: "1234998450", proprietario: "José da Silva", nome: "Max", tipo: "Cachorro", raca: "Pastor Alemão", tamanho: "Grande" },
             { id: "1351518110", proprietario: "Maria da Silva", nome: "Ginger", tipo: "Gato", raca: "Não Definida", tamanho: "Pequeno" }
         ];
         
@@ -459,7 +459,7 @@ function carregarTabelaPets() {
             <td>${pet.raca}</td>
             <td>${pet.tamanho}</td>
             <td>
-                <a href="editar-pet.html">Editar</a>
+                <a href="editar-pet.html" onclick="prepararEdicaoPet('${pet.id}')">Editar</a>
                 <a href="visualizar-pet.html" onclick="prepararVisualizacaoPet('${pet.id}')">Visualizar</a>
             </td>
         `;
@@ -502,3 +502,96 @@ function carregarDadosVisualizacaoPet() {
 }
 
 carregarDadosVisualizacaoPet();
+
+
+
+
+
+// EDITAR PET
+
+//guarda o id do pet ao clicar em editar
+function prepararEdicaoPet(id) {
+    localStorage.setItem('idPetEmEdicao', id);
+}
+
+//carrega os dados nos inputs na pagina de edição de pet
+function carregarDadosEdicaoPet() {
+    const campoNomeEditar = document.getElementById('editar-nome-pet');
+
+    if(!campoNomeEditar) return; // se não encontrar o campo para o script
+
+    const idPet = localStorage.getItem('idPetEmEdicao');
+    const listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+    const petEncontrado = listaPets.find(pet => pet.id === idPet);
+
+    if (petEncontrado) {
+        document.getElementById('editar-dono-pet').value = petEncontrado.proprietario;
+        campoNomeEditar.value = petEncontrado.nome;
+        document.getElementById('editar-raca-pet').value = petEncontrado.raca;
+
+        // marcar a opção correta no select tipo
+        const selectTipo = document.getElementById('editar-tipo-pet');
+        if (selectTipo) {
+            for (let i = 0; i < selectTipo.options.length; i++) {
+                if (selectTipo.options[i].text === petEncontrado.tipo) {
+                    selectTipo.selectedIndex = i;
+                    break
+                }
+            }
+        }
+
+        // marcar a opção correta no slect tamannho
+        const selectTamanho = document.getElementById('editar-tamanho-pet');
+        if(selectTamanho) {
+            for (let i = 0; i < selectTamanho.options.length; i++) {
+                if (selectTamanho.options[i].text === petEncontrado.tamanho) {
+                    selectTamanho.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+    } else {
+        alert('pet não encontrado')
+    }
+}
+
+carregarDadosEdicaoPet();
+
+// salva as alterações feitas no formulario
+const btnSalvarEdicaoPet = document.getElementById('btn-salvar-edicao-pet');
+
+if (btnSalvarEdicaoPet) {
+    btnSalvarEdicaoPet.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const idPet = localStorage.getItem('idPetEmEdicao');
+        let listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+        const index = listaPets.findIndex(pet => pet.id === idPet);
+
+        if (index !== -1) {
+            listaPets[index].proprietario = document.getElementById('editar-dono-pet').value.trim();
+            listaPets[index].nome = document.getElementById('editar-nome-pet').value.trim();
+            listaPets[index].raca = document.getElementById('editar-raca-pet').value.trim();
+            const selectTipo = document.getElementById('editar-tipo-pet');
+            listaPets[index].tipo = selectTipo.options[selectTipo.selectedIndex].text;
+            const selectTamanho = document.getElementById('editar-tamanho-pet');
+            listaPets[index].tamanho = selectTamanho.options[selectTamanho.selectedIndex].text;
+
+            //salva de volta no local stoage
+            localStorage.setItem('tabelaPets', JSON.stringify(listaPets));
+
+            alert('pet atualizado com sucesso');
+            window.location.href = 'pets.html';
+
+        }
+    })
+}
+
+
+// logica do botão voltar (pagina de edição de pet)
+const btnVoltarEdicaoPet = document.getElementById('btn-voltar-edicao-pet');
+
+btnVoltarEdicaoPet.addEventListener('click', function(event) {
+    event.preventDefault();
+    window.location.href = 'pets.html';
+})
