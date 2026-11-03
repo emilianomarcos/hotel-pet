@@ -394,7 +394,7 @@
     margin-top: 10px;
 }
 
-.campo-reserva > input, .campo-reserva > textarea {
+.campo-reserva > input, .campo-reserva > textarea, .campo-reserva > select {
     width: 100%;
     padding: 8px;
 }
