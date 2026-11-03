@@ -850,3 +850,180 @@ function carregarDadosVisualizacaoReserva() {
 }
 
 carregarDadosVisualizacaoReserva();
+
+
+
+
+
+
+// EDITAR RESERVA - LOCAL STORAGE
+
+//armazena o id da reserva quando clica em 'Editar'
+function prepararEdicaoReserva(id) {
+    localStorage.setItem('idReservaEmEdicao', id);
+}
+
+//mostra ou esconde os campos extras dependendo do status
+function atualizarLayoutPorStatus() {
+    const selectStatus = document.getElementById('editar-reserva-status');
+    const blocoAndamento = document.getElementById('bloco-andamento');
+    const blocoFinalizada = document.getElementById('bloco-finalizada');
+
+    // caso alguns dos elementos não tenham na tela, para aqui.
+    if (!selectStatus || !blocoAndamento || !blocoFinalizada) return;
+
+    // começa escondendo os dois blocos para ficar mais limpo
+    blocoAndamento.style.display = 'none';
+    blocoFinalizada.style.display = 'none';
+
+    // lê a opção selecionada e mostra apenas o bloco correto
+    if (selectStatus.value === 'Em progresso') {
+        blocoAndamento.style.display = 'block';
+    } else if (selectStatus.value === 'Finalizado') {
+        blocoFinalizada.style.display = 'block';
+    }
+}
+
+//Preenche a tela de edição com os dados que já estavam salvos
+function carregarDadosEdicaoReserva() {
+    const campoChegada = document.getElementById('editar-reserva-chegada');
+
+    if (!campoChegada) return;
+
+    // pega o id salvo e busca a lista completa no local storage
+    const idReserva = localStorage.getItem('idReservaEmEdicao');
+    const listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
+
+    // procura a reserva exata na lista
+    const reservaEncontrada = listaReservas.find(reserva => reserva.id === idReserva);
+
+    if (reservaEncontrada) {
+        // Preenche os campos de Proprietário e Pet 
+        document.getElementById('editar-reserva-dono').value = reservaEncontrada.proprietario;
+        document.getElementById('editar-reserva-pet').value = reservaEncontrada.pet;
+
+        // função para converter a data 
+        const formatarParaInputDate = (dataBR) => {
+            if (!dataBR) return '';
+            const partes = dataBR.split('/');
+            return partes.length === 3 ? `${partes[2]}-${partes[1]}-${partes[0]}` : dataBR;
+        };
+
+        // preenche data, anotações e valor
+        campoChegada.value = formatarParaInputDate(reservaEncontrada.chegada);
+        document.getElementById('editar-reserva-partida').value = formatarParaInputDate(reservaEncontrada.partida);
+        document.getElementById('editar-reserva-notas').value = reservaEncontrada.notas || '';
+        document.getElementById('editar-reserva-total-texto').textContent = reservaEncontrada.total;
+
+        // Puxa as anotações feitas pelo funcionário
+        const campoAnotacoesFunc = document.getElementById('editar-reserva-anotacoes-func');
+        if (campoAnotacoesFunc) {
+            campoAnotacoesFunc.value = reservaEncontrada.anotacoesFuncionario || '';
+        }
+        const selectStatus = document.getElementById('editar-reserva-status');
+        selectStatus.value = reservaEncontrada.status;
+        atualizarLayoutPorStatus(); 
+
+        selectStatus.addEventListener('change', atualizarLayoutPorStatus);
+    }
+}
+
+carregarDadosEdicaoReserva();
+
+// recalcula o valor total caso o usuario mude as datas
+function ativarCalculoDiariasEdicao() {
+    const inputChegada = document.getElementById('editar-reserva-chegada');
+    const inputPartida = document.getElementById('editar-reserva-partida');
+    const spanTotal = document.getElementById('editar-reserva-total-texto');
+
+    // Só continua se os campos existirem na página atual
+    if (!inputChegada || !inputPartida || !spanTotal) return;
+
+    function calcularEdicao() {
+        // Confere se as duas datas foram preenchidas
+        if (inputChegada.value && inputPartida.value) {
+            const data1 = new Date(inputChegada.value);
+            const data2 = new Date(inputPartida.value);
+            
+            // converte a diferença para dias
+            const diferencaTempo = data2.getTime() - data1.getTime();
+            let diferencaDias = Math.ceil(diferencaTempo / (1000 * 3600 * 24));
+
+            // para caso a data partida for menor que a data chegada
+            if (diferencaDias < 0) { 
+                spanTotal.textContent = 'Data inválida'; 
+                return; 
+            }
+            
+            // Cobra no mínimo 1 diária 
+            if (diferencaDias === 0) diferencaDias = 1;
+
+            // Pega o valor base das Configurações ou 40,00 caso não tenha
+            const valorDiaria = parseFloat(localStorage.getItem('configValorDiaria')) || 40.00;
+            const total = diferencaDias * valorDiaria;
+            
+            // Exibe o valor formatado com vírgula
+            spanTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+    }
+    
+    // executa função "calcularEdicao" toda vez que o calendário é modificado
+    inputChegada.addEventListener('change', calcularEdicao);
+    inputPartida.addEventListener('change', calcularEdicao);
+}
+ativarCalculoDiariasEdicao();
+
+
+// Salva
+const btnSalvarEdicaoReserva = document.getElementById('btn-salvar-edicao-reserva');
+if (btnSalvarEdicaoReserva) {
+    btnSalvarEdicaoReserva.addEventListener('click', function(event) {
+        event.preventDefault(); // Impede a página de recarregar ao clicar
+
+        // Descobre qual reserva estamos mexendo e baixa a lista completa
+        const idReserva = localStorage.getItem('idReservaEmEdicao');
+        let listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
+        
+        // Acha a posição da reserva específica dentro do array
+        const index = listaReservas.findIndex(reserva => reserva.id === idReserva);
+
+        if (index !== -1) {
+            
+            const formatarParaBR = (dataUS) => {
+                const partes = dataUS.split('-');
+                return `${partes[2]}/${partes[1]}/${partes[0]}`;
+            };
+
+            // Substitui os dados velhos pelos dados novos
+            listaReservas[index].chegada = formatarParaBR(document.getElementById('editar-reserva-chegada').value);
+            listaReservas[index].partida = formatarParaBR(document.getElementById('editar-reserva-partida').value);
+            listaReservas[index].status = document.getElementById('editar-reserva-status').value;
+            listaReservas[index].notas = document.getElementById('editar-reserva-notas').value.trim();
+            listaReservas[index].total = document.getElementById('editar-reserva-total-texto').textContent;
+            
+            // salva as anotações caso o usuario tenha preenchido
+            const campoAnotacoesFunc = document.getElementById('editar-reserva-anotacoes-func');
+            if (campoAnotacoesFunc) {
+                listaReservas[index].anotacoesFuncionario = campoAnotacoesFunc.value.trim();
+            }
+
+            // Grava a lista atualizada no local Storage
+            localStorage.setItem('tabelaReservas', JSON.stringify(listaReservas));
+            alert('Reserva atualizada com sucesso!');
+            
+            // redireciona para a pagina reservas
+            window.location.href = 'reservas.html'; 
+        }
+    });
+}
+
+
+// LOGICA DO BOTÃO VOLTAR - PAGINA EDITAR RESERVA
+
+const btnVoltarEdicaoReserva = document.getElementById('btn-voltar-edicao-reserva');
+
+if (btnVoltarEdicaoReserva) {
+    btnVoltarEdicaoReserva.addEventListener('click', function() {
+        window.location.href = 'reservas.html';
+    });
+}

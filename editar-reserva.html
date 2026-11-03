@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Reserva</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="container-reservas">
         <div class="ctn-menu">
@@ -63,45 +65,67 @@
                         <div class="form-editar-reserva">
 
                             <div class="campo-filtro">
-                                <label for="">Proprietário</label>
-                                <input type="text" name="" id="">
+                                <label for="editar-reserva-dono">Proprietário</label>
+                                <input type="text" id="editar-reserva-dono" readonly style="background-color: #f0f0f0;">
                             </div>
 
                             <div class="campo-filtro">
-                                <label for="">Pet</label>
-                                <input type="text" name="" id="">
+                                <label for="editar-reserva-pet">Pet</label>
+                                <input type="text" id="editar-reserva-pet" readonly style="background-color: #f0f0f0;">
                             </div>
-                            
+
                             <div class="campo-filtro">
-                                <label for="">Período</label>
+                                <label for="editar-reserva-chegada">Período</label>
                                 <div class="periodo">
-                                    <input type="date" name="" id="">
-                                    <input type="date" name="" id="">
+                                    <input type="date" id="editar-reserva-chegada">
+                                    <input type="date" id="editar-reserva-partida">
                                 </div>
                             </div>
 
                             <div class="campo-filtro">
-                                <label for="">Notas</label>
-                                <textarea name="" id="" rows="5"></textarea>
+                                <label for="editar-reserva-notas">Notas Iniciais</label>
+                                <textarea id="editar-reserva-notas" rows="3"></textarea>
                             </div>
 
                             <div class="campo-filtro">
-                                <label for="">Status</label>
-                                <select name="" id="">
-                                    <option value=""></option>
-                                    <option value="reservada">Reservada</option>
-                                    <option value="em-progresso">Em progresso</option>
-                                    <option value="finalizada">Finalizada</option>
+                                <label for="editar-reserva-status">Status</label>
+                                <select id="editar-reserva-status">
+                                    <option value="Reservado">Reservado</option>
+                                    <option value="Em progresso">Em progresso</option>
+                                    <option value="Finalizado">Finalizado</option>
                                 </select>
                             </div>
 
+                            <!-- BLOCO DINÂMICO: EM ANDAMENTO (Oculto por padrão) -->
+                            <div id="bloco-andamento" style="display: none;">
+                                <div class="campo-filtro">
+                                    <label for="editar-reserva-anotacoes-func">Anotações do funcionário</label>
+                                    <textarea id="editar-reserva-anotacoes-func" rows="3"></textarea>
+                                </div>
+                                <div class="imagens-reserva-andamento">
+                                    <img src="imagens/cachorro.jpg" alt="" height="100px">
+                                    <img src="imagens/nova-imagem.png" alt="" height="100px">
+                                </div>
+                            </div>
+
+                            <!-- BLOCO DINÂMICO: FINALIZADA (Oculto por padrão) -->
+                            <div id="bloco-finalizada" style="display: none;">
+                                <div class="nota-fiscal">
+                                    <a href="#" class="link-roxo">Adicionar Nota Fiscal</a>
+                                </div>
+                                <div class="recibo">
+                                    <img src="imagens/icone-anexo.png" alt="">
+                                    <a href="#">recibo.pdf</a>
+                                </div>
+                            </div>
+
                             <div class="total">
-                                <p>Total das diárias: <span>R$ 40,00</span></p>
+                                <p>Total das diárias: <span id="editar-reserva-total-texto">R$ 0,00</span></p>
                             </div>
 
                             <div class="caixa-botoes">
-                                <button class="botao-azul">Salvar</button>
-                                <button class="botao-branco-laranja">Limpar</button>
+                                <button type="button" id="btn-salvar-edicao-reserva" class="botao-azul">Salvar</button>
+                                <button type="button" class="botao-branco-laranja" id="btn-voltar-edicao-reserva">Voltar</button>
                             </div>
                         </div>
 
@@ -115,4 +139,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
