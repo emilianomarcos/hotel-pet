@@ -460,7 +460,7 @@ function carregarTabelaPets() {
             <td>${pet.tamanho}</td>
             <td>
                 <a href="editar-pet.html">Editar</a>
-                <a href="visualizar-pet.html">Visualizar</a>
+                <a href="visualizar-pet.html" onclick="prepararVisualizacaoPet('${pet.id}')">Visualizar</a>
             </td>
         `;
         
@@ -470,3 +470,35 @@ function carregarTabelaPets() {
 }
 
 carregarTabelaPets();
+
+
+
+
+
+//VISUALIZAR PET
+
+function prepararVisualizacaoPet(id) {
+    localStorage.setItem('idPetEmVisualizacao', id);
+}
+
+function carregarDadosVisualizacaoPet() {
+    const campoNomeVisualizar = document.getElementById('vis-nome-pet');
+
+    if (!campoNomeVisualizar) return;
+
+    const idPet = localStorage.getItem('idPetEmVisualizacao');
+    const listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+    const petEncontrado = listaPets.find(pet => pet.id === idPet);
+
+    if (petEncontrado) {
+        document.getElementById('vis-dono-pet').textContent = petEncontrado.proprietario;
+        document.getElementById('vis-id-pet').textContent = petEncontrado.id;
+        campoNomeVisualizar.textContent = petEncontrado.nome;
+        document.getElementById('vis-tipo-pet').textContent = petEncontrado.tipo;
+        document.getElementById('vis-raca-pet').textContent = petEncontrado.raca;   
+    } else {
+        alert('Os dados desse pet não foram encontrados');
+    }
+}
+
+carregarDadosVisualizacaoPet();
