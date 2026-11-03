@@ -1128,3 +1128,73 @@ carregarTabelaUsuarios();
 function prepararEdicaoUsuario(id) {
     localStorage.setItem('idUsuarioEmEdicao', id);
 }
+
+
+
+
+
+
+// EDITAR USUÁRIO - LOCAL STORAGE
+
+
+// Carrega os dados na tela editar-perfil
+function carregarDadosEdicaoUsuario() {
+    const campoNome = document.getElementById('edicao-usuario-nome');
+    
+    // Se não encontrou o campo, para o script (não está na tela de editar perfil)
+    if (!campoNome) return; 
+
+    const idUsuario = localStorage.getItem('idUsuarioEmEdicao');
+    const listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+    const usuarioEncontrado = listaUsuarios.find(u => u.id === idUsuario);
+
+    if (usuarioEncontrado) {
+        document.getElementById('edicao-usuario-email').value = usuarioEncontrado.email;
+        document.getElementById('edicao-usuario-telefone').value = usuarioEncontrado.telefone || '';
+        document.getElementById('edicao-usuario-funcao').value = usuarioEncontrado.funcao;
+        
+        // separa nome e sobrenome
+        const partesNome = usuarioEncontrado.nome.split(' ');
+        campoNome.value = partesNome[0]; 
+        
+        
+        const campoSobrenome = document.getElementById('edicao-usuario-sobrenome');
+        if (campoSobrenome) {
+            campoSobrenome.value = partesNome.slice(1).join(' '); 
+        }
+    }
+}
+carregarDadosEdicaoUsuario();
+
+// Salva as alterações
+const btnSalvarEdicaoUsuario = document.getElementById('btn-salvar-edicao-usuario');
+
+if (btnSalvarEdicaoUsuario) {
+    btnSalvarEdicaoUsuario.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const idUsuario = localStorage.getItem('idUsuarioEmEdicao');
+        let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+        const index = listaUsuarios.findIndex(u => u.id === idUsuario);
+
+        if (index !== -1) {
+            // Captura os dados atualizados
+            const email = document.getElementById('edicao-usuario-email').value.trim();
+            const nome = document.getElementById('edicao-usuario-nome').value.trim();
+            const sobrenome = document.getElementById('edicao-usuario-sobrenome').value.trim();
+            const telefone = document.getElementById('edicao-usuario-telefone').value.trim();
+            const funcao = document.getElementById('edicao-usuario-funcao').value;
+
+            // Substitui na lista
+            listaUsuarios[index].email = email;
+            listaUsuarios[index].nome = `${nome} ${sobrenome}`.trim(); 
+            listaUsuarios[index].telefone = telefone;
+            listaUsuarios[index].funcao = funcao;
+
+            // Grava e volta pra tabela
+            localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
+            alert('Usuario atualizado com sucesso!');
+            window.location.href = 'usuarios.html';
+        }
+    });
+}
