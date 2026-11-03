@@ -591,7 +591,193 @@ if (btnSalvarEdicaoPet) {
 // logica do botão voltar (pagina de edição de pet)
 const btnVoltarEdicaoPet = document.getElementById('btn-voltar-edicao-pet');
 
-btnVoltarEdicaoPet.addEventListener('click', function(event) {
-    event.preventDefault();
-    window.location.href = 'pets.html';
-})
+if (btnVoltarEdicaoPet){
+    btnVoltarEdicaoPet.addEventListener('click', function() {
+        window.location.href = 'pets.html';
+
+    });
+}
+
+
+
+
+
+// FAZER NOVA RESERVA
+
+//injetar os pets cadastrados no select
+function carregarPetsNoSelect() {
+    const selectPet = document.getElementById('reserva-pet');
+
+    if(!selectPet) return; 
+
+    const listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+
+    // limpa o select e deixa só a opção padrão
+    selectPet.innerHTML = '<option value="">Selecione um pet...</option>';
+
+    listaPets.forEach(pet => {
+        const option = document.createElement('option');
+        option.value = pet.nome;
+
+        option.textContent = `${pet.nome} (${pet.tipo} - ${pet.raca})`;
+
+
+        selectPet.appendChild(option);
+    });
+}
+
+carregarPetsNoSelect();
+
+
+// calcula o total das diárias
+function ativarCalculoDiarias() {
+    const inputChegada = document.getElementById('reserva-chegada');
+    const inputPartida = document.getElementById('reserva-partida');
+    const spanTotal = document.getElementById('reserva-total-texto');
+
+    if (!inputChegada || !inputPartida || !spanTotal) return;
+
+    function calcular() {
+        if (inputChegada.value && inputPartida.value) {
+            const data1 = new Date(inputChegada.value);
+            const data2 = new Date(inputPartida.value);
+
+            // diferença de dias
+            const diferencaTempo = data2.getTime() - data1.getTime();
+            let diferencaDias = Math.ceil(diferencaTempo / (1000 * 3600 * 24));
+
+            if (diferencaDias < 0) {
+                spanTotal.textContent = 'Data invalida';
+                return;
+            }
+
+            if (diferencaDias === 0) diferencaDias = 1;
+
+            //busca valor na pagina configuracoes
+            const valorDiaria = parseFloat(localStorage.getItem('configValorDiaria')) || 40.00;
+            const total = diferencaDias * valorDiaria;
+
+            spanTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        } else {
+            spanTotal.textContent = "R$ 0,00";
+        }
+    }
+
+    inputChegada.addEventListener('change', calcular);
+    inputPartida.addEventListener('change', calcular);
+}
+ativarCalculoDiarias();
+
+
+// SALVAR NOVA RESERVA (LOCAL STORAGE)
+
+const btnSalvarReserva = document.getElementById('btn-salvar-reserva');
+
+if (btnSalvarReserva) {
+    btnSalvarReserva.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // captura os elementos
+        const selectPet = document.getElementById('reserva-pet');
+        const dataChegada = document.getElementById('reserva-chegada').value;
+        const dataPartida = document.getElementById('reserva-partida').value;
+        const notas = document.getElementById('reserva-notas').value.trim();
+        const spanTotal = document.getElementById('reserva-total-texto').textContent;
+
+        // impede salvar caso falte o pet ou as datas
+        if (selectPet.value === "" || !dataChegada || !dataPartida) {
+            alert('Slecione o pet e preencha as datas');
+            return;
+        }
+
+        // captura o pet
+        const nomePet = selectPet.value; 
+        const petsCadastrados = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+        const petEncontrado = petsCadastrados.find(pet => pet.nome === nomePet);
+        const nomeDono = (petEncontrado && petEncontrado.proprietario) ? petEncontrado.proprietario : "Não informado";
+
+        // formata data
+        const formatarParaBR = (dataUS) => {
+            const partes = dataUS.split('-');
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        };
+
+        //cria objeto da nova reserva
+        const novaReserva = {
+            id: (Math.floor(Math.random() * 9000000000) + 1000000000).toString(),
+            proprietario: nomeDono,
+            pet: nomePet,
+            chegada: formatarParaBR(dataChegada),
+            partida: formatarParaBR(dataPartida),
+            status: 'Reservado',
+            total: spanTotal,
+            notas: notas
+        };
+
+        //salva no local storage
+        let listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
+        listaReservas.push(novaReserva);
+        localStorage.setItem('tabelaReservas', JSON.stringify(listaReservas));
+
+        alert('Reserva efetuada com sucesso!');
+
+        // redireciona para reservas.html
+        window.location.href = 'reservas.html';
+    });
+}
+
+
+
+// RENDERIZAR TABELA DE RESERVAS (LOCAL STORAGE)
+
+
+function carregarTabelaReservas() {
+    const tbodyReservas = document.getElementById('tabela-reservas-body');
+    
+    // Se não estiver na página de reservas para o script
+    if (!tbodyReservas) return;
+
+    let listaReservas = JSON.parse(localStorage.getItem('tabelaReservas'));
+
+    // caso a lista não exita cria os dados padrão originais do seu projeto
+    if (!listaReservas || listaReservas.length === 0) {
+        listaReservas = [
+            { id: "1234998450", proprietario: "José da Silva", pet: "Max", chegada: "02/05/2021", partida: "07/05/2021", status: "Reservado", total: "R$ 40,00", notas: "" },
+            { id: "5235158364", proprietario: "Pedro Paulo", pet: "Luna", chegada: "10/05/2021", partida: "15/05/2021", status: "Em progresso", total: "R$ 40,00", notas: "" },
+            { id: "4977554725", proprietario: "Fábio Santos", pet: "Rex", chegada: "17/05/2021", partida: "22/05/2021", status: "Finalizado", total: "R$ 40,00", notas: "" }
+        ];
+        localStorage.setItem('tabelaReservas', JSON.stringify(listaReservas));
+    }
+
+    
+    tbodyReservas.innerHTML = '';
+
+    // Desenha as linhas dinamicamente
+    listaReservas.forEach(reserva => {
+        const linha = document.createElement('tr');
+        
+        // Define a classe CSS do status 
+        let classeStatus = '';
+        if (reserva.status.toLowerCase() === 'reservado') classeStatus = 'status-reservado';
+        else if (reserva.status.toLowerCase() === 'em progresso') classeStatus = 'status-progresso';
+        else if (reserva.status.toLowerCase() === 'finalizado') classeStatus = 'status-finalizado';
+
+        linha.innerHTML = `
+            <td><input type="checkbox"></td>
+            <td>${reserva.id}</td>
+            <td>${reserva.proprietario}</td>
+            <td>${reserva.pet}</td>
+            <td>${reserva.chegada}</td>
+            <td>${reserva.partida}</td>
+            <td><span class="${classeStatus}">${reserva.status}</span></td>
+            <td>${reserva.total}</td>
+            <td>
+                <a href="editar-reserva.html" onclick="prepararEdicaoReserva('${reserva.id}')">Editar</a>
+                <a href="visualizar-reserva.html" onclick="prepararVisualizacaoReserva('${reserva.id}')">Visualizar</a>
+            </td>
+        `;
+        
+        tbodyReservas.appendChild(linha);
+    });
+}
+carregarTabelaReservas();
