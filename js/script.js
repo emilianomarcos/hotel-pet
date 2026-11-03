@@ -1027,3 +1027,104 @@ if (btnVoltarEdicaoReserva) {
         window.location.href = 'reservas.html';
     });
 }
+
+
+
+
+
+// CADASTRAR NOVO USUÁRIO (LOCAL STORAGE)
+
+const btnSalvarNovoUsuario = document.getElementById('btn-salvar-novo-usuario');
+
+if (btnSalvarNovoUsuario) {
+    btnSalvarNovoUsuario.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('cadastro-usuario-email').value.trim();
+        const nome = document.getElementById('cadastro-usuario-nome').value.trim();
+        const sobrenome = document.getElementById('cadastro-usuario-sobrenome').value.trim();
+        const telefone = document.getElementById('cadastro-usuario-telefone').value.trim();
+        const funcao = document.getElementById('cadastro-usuario-funcao').value;
+
+        if (!email || !nome) {
+            alert('Por favor, preencha pelo menos o Nome e o E-mail.');
+            return;
+        }
+
+        // Função para obter a data atual no formato DD/MM/AAAA
+        const dataAtual = new Date();
+        const dia = String(dataAtual.getDate()).padStart(2, '0');
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const ano = dataAtual.getFullYear();
+        const dataCriacao = `${dia}/${mes}/${ano}`;
+
+        const novoUsuario = {
+            id: (Math.floor(Math.random() * 90000) + 10000).toString(),
+            email: email,
+            nome: `${nome} ${sobrenome}`.trim(),
+            telefone: telefone,
+            funcao: funcao,
+            status: 'Ativo',
+            criadoEm: dataCriacao,
+            foto: 'imagens/Avatar.png' // Imagem padrão temporária
+        };
+
+        let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+        listaUsuarios.push(novoUsuario);
+        localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
+
+        alert('Usuário cadastrado com sucesso!');
+        window.location.href = 'usuarios.html';
+    });
+}
+
+
+// RENDERIZAR TABELA DE USUÁRIOS
+
+function carregarTabelaUsuarios() {
+    const tbodyUsuarios = document.getElementById('tabela-usuarios-body');
+    
+    if (!tbodyUsuarios) return;
+
+    let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios'));
+
+    // Cria os dados padrão se a lista estiver vazia (os 3 que estavam no seu HTML)
+    if (!listaUsuarios || listaUsuarios.length === 0) {
+        listaUsuarios = [
+            { id: "12345", email: "joaodasilva@gmail.com", nome: "João da Silva", telefone: "Não informado", funcao: "Gerente", status: "Ativo", criadoEm: "19/02/2020", foto: "imagens/Avatar.png" },
+            { id: "45678", email: "maria@pet.com", nome: "Maria da Silva", telefone: "Não informado", funcao: "Funcionário", status: "Inativo", criadoEm: "19/02/2020", foto: "imagens/Avatar.png" },
+            { id: "78910", email: "josedasilva@pet.com", nome: "José da Silva", telefone: "Não informado", funcao: "Cliente", status: "Ativo", criadoEm: "19/02/2020", foto: "imagens/Avatar.png" }
+        ];
+        localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
+    }
+
+    tbodyUsuarios.innerHTML = '';
+
+    listaUsuarios.forEach(usuario => {
+        const linha = document.createElement('tr');
+        
+        let classeStatus = usuario.status === 'Ativo' ? 'status-ativo' : 'status-inativo';
+
+        linha.innerHTML = `
+            <td><input type="checkbox"></td>
+            <td><img src="${usuario.foto}" alt="" height="30px" style="border-radius:50%"></td>
+            <td>${usuario.id}</td>
+            <td>${usuario.email}</td>
+            <td>${usuario.nome}</td>
+            <td>${usuario.funcao}</td>
+            <td><span class="${classeStatus}">${usuario.status}</span></td>
+            <td>${usuario.criadoEm}</td>
+            <td>
+                <a href="editar-perfil.html" onclick="prepararEdicaoUsuario('${usuario.id}')">Editar</a>
+                <a href="#">Visualizar</a>
+            </td>
+        `;
+        tbodyUsuarios.appendChild(linha);
+    });
+}
+carregarTabelaUsuarios();
+
+
+function prepararEdicaoUsuario(id) {
+    localStorage.setItem('idUsuarioEmEdicao', id);
+}

@@ -61,49 +61,48 @@
                     </div>
 
                     <div class="container-filtro">
-
                         <div class="form-editar-perfil">
 
                             <div class="campo-filtro">
-                                <label for="">E-mail</label>
-                                <input type="text" required name="" id="">
+                                <label for="cadastro-usuario-email">E-mail</label>
+                                <input type="email" required id="cadastro-usuario-email">
                             </div>
 
                             <div class="campo-filtro">
-                                <label for="">Nome</label>
-                                <input type="text" required name="" id="">
-                            </div>
-                            
-                            <div class="campo-filtro">
-                                <label for="">Sobrenome</label>
-                                <input type="text" required name="" id="">
-                            </div>
-                            
-                            <div class="campo-filtro">
-                                <label for="">Telefone</label>
-                                <input type="text" required name="" id="">
+                                <label for="cadastro-usuario-nome">Nome</label>
+                                <input type="text" required id="cadastro-usuario-nome">
                             </div>
 
                             <div class="campo-filtro">
-                                <label for="">Função</label>
-                                <select name="" id="">
-                                    <option value=""></option>
-                                    <option value="funcionario">Funcionário</option>
-                                    <option value="cliente">Cliente</option>
-                                    <option value="gerente">Gerente</option>
+                                <label for="cadastro-usuario-sobrenome">Sobrenome</label>
+                                <input type="text" required id="cadastro-usuario-sobrenome">
+                            </div>
+
+                            <div class="campo-filtro">
+                                <label for="cadastro-usuario-telefone">Telefone</label>
+                                <input type="text" required id="cadastro-usuario-telefone">
+                            </div>
+
+                            <div class="campo-filtro">
+                                <label for="cadastro-usuario-funcao">Função</label>
+                                <select id="cadastro-usuario-funcao">
+                                    <option value="Cliente">Cliente</option>
+                                    <option value="Funcionário">Funcionário</option>
+                                    <option value="Gerente">Gerente</option>
                                 </select>
                             </div>
 
                             <div class="foto-perfil">
                                 <div class="campo-filtro">
-                                    <label for="">Imagem</label>
-                                    <input type="file" accept=".jpg, .jpeg, .png, .webp" src="" alt="">
+                                    <label for="cadastro-usuario-imagem">Imagem</label>
+                                    <input type="file" id="cadastro-usuario-imagem" accept=".jpg, .jpeg, .png, .webp">
                                 </div>
                             </div>
 
                             <div class="caixa-botoes">
-                                <button class="botao-azul">Salvar</button>
-                                <button class="botao-branco-laranja">Limpar</button>
+                                <!-- É fundamental o type="button" para não recarregar a página -->
+                                <button type="button" id="btn-salvar-novo-usuario" class="botao-azul">Salvar</button>
+                                <button type="button" class="botao-branco-laranja">Limpar</button>
                             </div>
 
                         </div>
