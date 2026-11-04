@@ -461,6 +461,7 @@ function carregarTabelaPets() {
             <td>
                 <a href="editar-pet.html" onclick="prepararEdicaoPet('${pet.id}')">Editar</a>
                 <a href="visualizar-pet.html" onclick="prepararVisualizacaoPet('${pet.id}')">Visualizar</a>
+                <a href="#" onclick="removerPet('${pet.id}')" style="color: red; margin-left: 10px;">Remover</a>
             </td>
         `;
         
@@ -1247,3 +1248,23 @@ function carregarDadosVisualizacaoUsuario() {
 }
 
 carregarDadosVisualizacaoUsuario();
+
+
+
+
+
+//REMOVER PET - LOCAL STORAGE
+
+function removerPet(id) {
+
+    // puxa a lista atual de pets
+    let listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+
+    // filtra a lista mantendo todos os pets, exceto o selecionado
+    listaPets = listaPets.filter(pet => pet.id !== id);
+
+    // salva nova lista no local stoare sem o pet removido
+    localStorage.setItem('tabelaPets', JSON.stringify(listaPets));
+
+    carregarTabelaPets();
+}
