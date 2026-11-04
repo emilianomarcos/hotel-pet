@@ -1116,7 +1116,7 @@ function carregarTabelaUsuarios() {
             <td>${usuario.criadoEm}</td>
             <td>
                 <a href="editar-perfil.html" onclick="prepararEdicaoUsuario('${usuario.id}')">Editar</a>
-                <a href="#">Visualizar</a>
+                <a href="visualizar-usuario.html" onclick="prepararVisualizacaoUsuario('${usuario.id}')">Visualizar</a>
             </td>
         `;
         tbodyUsuarios.appendChild(linha);
@@ -1198,3 +1198,52 @@ if (btnSalvarEdicaoUsuario) {
         }
     });
 }
+
+
+
+
+
+// VISUALIZAR USUÁRIO - LOCAL STORAGE
+
+
+// Guarda o id do usuário clicado na tabela
+function prepararVisualizacaoUsuario(id) {
+    localStorage.setItem('idUsuarioEmVisualizacao', id);
+}
+
+// Preenche a tela visualizar-usuario.html com os dados do usuário
+function carregarDadosVisualizacaoUsuario() {
+    const campoNome = document.getElementById('vis-usuario-nome');
+
+    // se não existir esse campo, não é a tela de visualização
+    if (!campoNome) return;
+
+    const idUsuario = localStorage.getItem('idUsuarioEmVisualizacao');
+    const listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+    const usuarioEncontrado = listaUsuarios.find(u => u.id === idUsuario);
+
+    if (usuarioEncontrado) {
+        document.getElementById('vis-usuario-email').value = usuarioEncontrado.email;
+        document.getElementById('vis-usuario-telefone').value = usuarioEncontrado.telefone || 'Não informado';
+
+        const selectFuncao = document.getElementById('vis-usuario-funcao');
+        if (selectFuncao) selectFuncao.value = usuarioEncontrado.funcao;
+
+        // primeiro nome vai pro nome, o resto vai pro sobrenome
+        const partesNome = usuarioEncontrado.nome.split(' ');
+        campoNome.value = partesNome[0];
+
+        const campoSobrenome = document.getElementById('vis-usuario-sobrenome');
+        if (campoSobrenome) {
+            campoSobrenome.value = partesNome.slice(1).join(' ');
+        }
+
+        // só troca a imagem se o usuário tiver foto
+        const imgFoto = document.getElementById('vis-usuario-imagem');
+        if (imgFoto && usuarioEncontrado.foto) {
+            imgFoto.src = usuarioEncontrado.foto;
+        }
+    }
+}
+
+carregarDadosVisualizacaoUsuario();
