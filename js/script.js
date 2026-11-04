@@ -1259,16 +1259,20 @@ carregarDadosVisualizacaoUsuario();
 
 function removerPet(id) {
 
-    // puxa a lista atual de pets
-    let listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+    // confirmação se deseja realmente remover o pet
+    if (confirm('Tem certeza que deseja remover esse pet?')) {
 
-    // filtra a lista mantendo todos os pets, exceto o selecionado
-    listaPets = listaPets.filter(pet => pet.id !== id);
-
-    // salva nova lista no local stoare sem o pet removido
-    localStorage.setItem('tabelaPets', JSON.stringify(listaPets));
-
-    carregarTabelaPets();
+        // puxa a lista atual de pets
+        let listaPets = JSON.parse(localStorage.getItem('tabelaPets')) || [];
+    
+        // filtra a lista mantendo todos os pets, exceto o selecionado
+        listaPets = listaPets.filter(pet => pet.id !== id);
+    
+        // salva nova lista no local stoare sem o pet removido
+        localStorage.setItem('tabelaPets', JSON.stringify(listaPets));
+    
+        carregarTabelaPets();
+    }
 }
 
 
@@ -1279,16 +1283,21 @@ function removerPet(id) {
 
 function removerUsuario(id) {
     
-    //puxa a lista atual de usuarios
-    let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+    // confirma se relamente deseja remover o usuario
+    if (confirm('Tem certeza que deseja remover esse usuario?')) {
+        
+        //puxa a lista atual de usuarios
+        let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+    
+        // fltra a lista de usuarios mantendo todos os usuarios exceto o selecionado
+        listaUsuarios = listaUsuarios.filter(usuario => usuario.id !== id);
+    
+        // salva a nova lista no local storare sem o usuario removido
+        localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
+    
+        carregarTabelaUsuarios();
 
-    // fltra a lista de usuarios mantendo todos os usuarios exceto o selecionado
-    listaUsuarios = listaUsuarios.filter(usuario => usuario.id !== id);
-
-    // salva a nova lista no local storare sem o usuario removido
-    localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
-
-    carregarTabelaUsuarios();
+    }
 }
 
 
@@ -1299,16 +1308,20 @@ function removerUsuario(id) {
 
 function removerReserva(id) {
 
-    //  puxa a lista atual de reservas
-    let listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
-
-    // filtra a lista de reservas, exceto a reserva selecionada
-    listaReservas = listaReservas.filter(reserva => reserva.id !== id);
-
-    // slava a nova lista no local storage sem a reserva removida
-    localStorage.setItem('tabelaReservas', JSON.stringify(listaReservas));
-
-    carregarTabelaReservas();
+    // confirma ante de excluir a reserva
+    if (confirm('Tem certeza que deseja remover essa reverva?')) {
+        
+        //  puxa a lista atual de reservas
+        let listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
+    
+        // filtra a lista de reservas, exceto a reserva selecionada
+        listaReservas = listaReservas.filter(reserva => reserva.id !== id);
+    
+        // slava a nova lista no local storage sem a reserva removida
+        localStorage.setItem('tabelaReservas', JSON.stringify(listaReservas));
+    
+        carregarTabelaReservas();
+    }
 }
 
 
