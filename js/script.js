@@ -1118,6 +1118,7 @@ function carregarTabelaUsuarios() {
             <td>
                 <a href="editar-perfil.html" onclick="prepararEdicaoUsuario('${usuario.id}')">Editar</a>
                 <a href="visualizar-usuario.html" onclick="prepararVisualizacaoUsuario('${usuario.id}')">Visualizar</a>
+                <a href="#" onclick="removerUsuario('${usuario.id}')">Remover</a>
             </td>
         `;
         tbodyUsuarios.appendChild(linha);
@@ -1268,3 +1269,29 @@ function removerPet(id) {
 
     carregarTabelaPets();
 }
+
+
+
+
+
+// REMOVER USUARIO - LOCAL STORAGE
+
+function removerUsuario(id) {
+    
+    //puxa a lista atual de usuarios
+    let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+
+    // fltra a lista de usuarios mantendo todos os usuarios exceto o selecionado
+    listaUsuarios = listaUsuarios.filter(usuario => usuario.id !== id);
+
+    // salva a nova lista no local storare sem o usuario removido
+    localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
+
+    carregarTabelaUsuarios();
+}
+
+
+
+
+
+
