@@ -1310,3 +1310,17 @@ function removerReserva(id) {
 
     carregarTabelaReservas();
 }
+
+
+
+
+
+// LOGICA DE SAIR 
+
+function fazerLogout() {
+    
+    // confirma se realmente o usuario deseja sair
+    if (confirm('Tem certeza que deseja sair?')) {
+        window.location.href = 'index.html';
+    }
+}
