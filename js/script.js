@@ -775,6 +775,7 @@ function carregarTabelaReservas() {
             <td>
                 <a href="editar-reserva.html" onclick="prepararEdicaoReserva('${reserva.id}')">Editar</a>
                 <a href="ver-reserva.html" onclick="prepararVisualizacaoReserva('${reserva.id}')">Visualizar</a>
+                <a href="#" onclick="removerReserva('${reserva.id}')">Remover</a>
             </td>
         `;
         
@@ -1294,4 +1295,18 @@ function removerUsuario(id) {
 
 
 
+// REMOVER RESERVA - LOCAL STORAGE
 
+function removerReserva(id) {
+
+    //  puxa a lista atual de reservas
+    let listaReservas = JSON.parse(localStorage.getItem('tabelaReservas')) || [];
+
+    // filtra a lista de reservas, exceto a reserva selecionada
+    listaReservas = listaReservas.filter(reserva => reserva.id !== id);
+
+    // slava a nova lista no local storage sem a reserva removida
+    localStorage.setItem('tabelaReservas', JSON.stringify(listaReservas));
+
+    carregarTabelaReservas();
+}
