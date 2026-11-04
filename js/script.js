@@ -1108,7 +1108,7 @@ function carregarTabelaUsuarios() {
         let classeStatus = usuario.status === 'Ativo' ? 'status-ativo' : 'status-inativo';
 
         linha.innerHTML = `
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" class="check-usuario" value="${usuario.id}"></td>
             <td><img src="${usuario.foto}" alt="" height="30px" style="border-radius:50%"></td>
             <td>${usuario.id}</td>
             <td>${usuario.email}</td>
@@ -1336,4 +1336,65 @@ function fazerLogout() {
     if (confirm('Tem certeza que deseja sair?')) {
         window.location.href = 'index.html';
     }
+}
+
+
+
+
+
+
+// MUDAR STATUS DE 1 OU MAIS USUÁRIOS
+
+const btnMudarStatusUsuarios = document.getElementById('btn-mudar-status-usuarios');
+
+if (btnMudarStatusUsuarios) {
+    btnMudarStatusUsuarios.addEventListener('click', function(event){
+        event.preventDefault();
+
+        // captura os checkboxes marcados
+        const checkboxesMarcados = document.querySelectorAll('.check-usuario:checked');
+
+        // se o usuari não marcar nenhum usario na tabela, mostra a mensagem e para o código
+        if (checkboxesMarcados.length === 0) {
+            alert('Selecione pelo menos um usuário marcando a caixa de seleção na tabela.');
+            return;
+        }
+
+        // puxa a lista de usuarios completa do local storage
+        let listaUsuarios = JSON.parse(localStorage.getItem('tabelaUsuarios')) || [];
+        let mudou = false;
+
+        // percorre cada check marcado
+        checkboxesMarcados.forEach(checkbox => {
+            const idSelecionado = checkbox.value;
+            const indice = listaUsuarios.findIndex(u => u.id === idSelecionado);
+
+            if (indice !== -1) {
+                // inverte o status
+                if (listaUsuarios[indice].status === 'Ativo') {
+                    listaUsuarios[indice].status = 'Inativo';
+                } else {
+                    listaUsuarios[indice].status = 'Ativo';
+                }
+                mudou = true;
+            }
+        });
+
+        // salva caso tenha alterado
+        if (mudou) {
+            localStorage.setItem('tabelaUsuarios', JSON.stringify(listaUsuarios));
+
+            carregarTabelaUsuarios();
+        }
+    }) 
+}
+
+
+
+
+// AO CLICAR EM ENTRAR COM FACEBOOK, TWITTER E GOOGLE
+function entrarComRedeSocial() {
+
+    // redireciona para a pagina de reservas
+    window.location.href = 'reservas.html';
 }
